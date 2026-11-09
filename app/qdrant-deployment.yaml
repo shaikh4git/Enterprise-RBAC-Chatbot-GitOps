@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: qdrant
+
+  namespace: enterprise-chatbot
+
+spec:
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: qdrant
+
+  template:
+
+    metadata:
+      labels:
+        app: qdrant
+
+    spec:
+
+      containers:
+
+        - name: qdrant
+
+          image: qdrant/qdrant:v1.13.2
+
+          ports:
+
+            - containerPort: 6333
+              name: http
+
+            - containerPort: 6334
+              name: grpc
+
+          volumeMounts:
+
+            - name: qdrant-storage
+
+              mountPath: /qdrant/storage
+
+          resources:
+
+            requests:
+              cpu: 100m
+              memory: 512Mi
+
+            limits:
+              cpu: "1"
+              memory: 1Gi
+
+          readinessProbe:
+
+            tcpSocket:
+              port: 6333
+
+            initialDelaySeconds: 10
+
+            periodSeconds: 10
+
+          livenessProbe:
+
+            tcpSocket:
+              port: 6333
+
+            initialDelaySeconds: 30
+
+            periodSeconds: 20
+
+      volumes:
+
+        - name: qdrant-storage
+
+          persistentVolumeClaim:
+
+            claimName: qdrant-pvc

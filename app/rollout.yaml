@@ -1,0 +1,134 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+
+metadata:
+  name: enterprise-rbac-chatbot
+
+  namespace: enterprise-chatbot
+
+spec:
+
+  replicas: 2
+
+  revisionHistoryLimit: 3
+
+  selector:
+    matchLabels:
+      app: enterprise-rbac-chatbot
+
+  template:
+
+    metadata:
+      labels:
+        app: enterprise-rbac-chatbot
+
+    spec:
+
+      securityContext:
+
+        runAsNonRoot: true
+
+        runAsUser: 10001
+
+        fsGroup: 10001
+
+      containers:
+
+        - name: chatbot
+
+          image: YOUR_DOCKERHUB_USERNAME/enterprise-rbac-chatbot:initial
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+
+            - name: http
+
+              containerPort: 8501
+
+          envFrom:
+
+            - configMapRef:
+
+                name: chatbot-config
+
+            - secretRef:
+
+                name: chatbot-secrets
+
+          env:
+
+            - name: HF_HOME
+
+              value: /home/appuser/.cache/huggingface
+
+          volumeMounts:
+
+            - name: model-cache
+
+              mountPath: /home/appuser/.cache
+
+          resources:
+
+            requests:
+              cpu: 100m
+              memory: 512Mi
+
+            limits:
+              cpu: "1"
+              memory: 1536Mi
+
+          readinessProbe:
+
+            httpGet:
+
+              path: /_stcore/health
+
+              port: 8501
+
+            initialDelaySeconds: 10
+
+            periodSeconds: 10
+
+          livenessProbe:
+
+            httpGet:
+
+              path: /_stcore/health
+
+              port: 8501
+
+            initialDelaySeconds: 30
+
+            periodSeconds: 20
+
+          securityContext:
+
+            allowPrivilegeEscalation: false
+
+            capabilities:
+
+              drop:
+                - ALL
+
+      volumes:
+
+        - name: model-cache
+
+          emptyDir: {}
+
+  strategy:
+
+    canary:
+
+      maxSurge: 1
+
+      maxUnavailable: 0
+
+      steps:
+
+        - setWeight: 50
+
+        - pause: {}
+
+        - setWeight: 100

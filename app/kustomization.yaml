@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: enterprise-chatbot
+
+resources:
+
+  - namespace.yaml
+
+  - configmap.yaml
+
+  - qdrant-pvc.yaml
+
+  - qdrant-deployment.yaml
+
+  - qdrant-service.yaml
+
+  - rollout.yaml
+
+  - chatbot-service.yaml
+
+images:
+
+  - name: YOUR_DOCKERHUB_USERNAME/enterprise-rbac-chatbot
+
+    newTag: initial

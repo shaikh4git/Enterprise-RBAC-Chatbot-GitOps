@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+
+metadata:
+  name: enterprise-chatbot
+
+  labels:
+    app.kubernetes.io/name: enterprise-rbac-chatbot

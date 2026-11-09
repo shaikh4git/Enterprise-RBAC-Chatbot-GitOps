@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: chatbot-config
+
+  namespace: enterprise-chatbot
+
+data:
+
+  QDRANT_URL: "http://qdrant:6333"
+
+  QDRANT_COLLECTION: "company_docs"
+
+  EMBEDDING_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
+
+  GROQ_MODEL: "openai/gpt-oss-20b"
+
+  LANGCHAIN_TRACING_V2: "true"
+
+  LANGCHAIN_ENDPOINT: "https://api.smith.langchain.com"
+
+  LANGCHAIN_PROJECT: "enterprise-rbac-chatbot"
