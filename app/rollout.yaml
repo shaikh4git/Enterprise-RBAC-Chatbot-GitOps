@@ -36,7 +36,7 @@ spec:
 
         - name: chatbot
 
-          image: YOUR_DOCKERHUB_USERNAME/enterprise-rbac-chatbot:initial
+          image: shaikhdocker/enterprise-rbac-chatbot:initial
 
           imagePullPolicy: IfNotPresent
 
@@ -44,7 +44,7 @@ spec:
 
             - name: http
 
-              containerPort: 8501
+              containerPort: 8505
 
           envFrom:
 
@@ -84,7 +84,7 @@ spec:
 
               path: /_stcore/health
 
-              port: 8501
+              port: 8505
 
             initialDelaySeconds: 10
 
@@ -96,7 +96,7 @@ spec:
 
               path: /_stcore/health
 
-              port: 8501
+              port: 8505
 
             initialDelaySeconds: 30
 
