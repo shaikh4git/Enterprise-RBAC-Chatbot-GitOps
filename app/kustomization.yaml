@@ -21,6 +21,6 @@ resources:
 
 images:
 
-  - name: YOUR_DOCKERHUB_USERNAME/enterprise-rbac-chatbot
+  - name: shaikhdocker/enterprise-rbac-chatbot
 
     newTag: f640616
