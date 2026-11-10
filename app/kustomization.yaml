@@ -23,4 +23,4 @@ images:
 
   - name: YOUR_DOCKERHUB_USERNAME/enterprise-rbac-chatbot
 
-    newTag: sha-d9cca1ded786d1dfbe35eaf93ccbfb47339b86d4
+    newTag: 13e6204
