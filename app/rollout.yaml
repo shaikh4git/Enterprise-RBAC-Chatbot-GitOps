@@ -36,7 +36,7 @@ spec:
 
         - name: chatbot
 
-          image: shaikhdocker/enterprise-rbac-chatbot:initial
+          image: shaikhdocker/enterprise-rbac-chatbot:${IMAGE_TAG}
 
           imagePullPolicy: IfNotPresent
 
