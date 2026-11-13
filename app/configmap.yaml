@@ -10,7 +10,7 @@ data:
 
   QDRANT_URL: "http://qdrant:6333"
 
-  QDRANT_COLLECTION: "company_docs"
+  QDRANT_COLLECTION: "madinps_docs"
 
   EMBEDDING_MODEL: "sentence-transformers/all-MiniLM-L6-v2"
 
