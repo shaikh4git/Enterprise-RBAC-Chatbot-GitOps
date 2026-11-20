@@ -23,4 +23,4 @@ images:
 
   - name: shaikhdocker/enterprise-rbac-chatbot
 
-    newTag: "1f5cee2"
+    newTag: "50348bf"
